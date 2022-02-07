@@ -6,11 +6,11 @@ const typeDefs = gql`
     username: String
     email: String
     bookCount: Int
-    savedBooks [Book]
+    savedBooks: [Book]
   }
 
   type Book {
-    bookId: Int
+    bookId: ID
     authors: [String]
     description: String
     title: String
@@ -43,3 +43,5 @@ const typeDefs = gql`
     removeBook(bookId: ID): User
   }
 `;
+
+module.exports = typeDefs;
