@@ -35,13 +35,34 @@ const resolvers = {
       return { token, user };
     },
     addUser: async (_, args) => {
-        const user = await User.create(args);
-        const token = await signToken(user);
-        return { token, user };
+      const user = await User.create(args);
+      const token = await signToken(user);
+      return { token, user };
     },
-    // saveBook: async (_, args, { user }) => {
-    //     const book = await 
-    // }
+    saveBook: async (_, args, { user }) => {
+      if (user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: user._id },
+          { $addToSet: { savedBooks: args } },
+          { new: true, validators: true }
+        );
+        return updatedUser;
+      }
+
+      throw new AuthenticationError("Must be logged in.");
+    },
+    removeBook: async (_, { bookId }, { user }) => {
+      if (user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: user._id },
+          { $pull: { savedBooks: { bookId: bookId } } },
+          { new: true, validators: true }
+        );
+        return updatedUser;
+      }
+
+      throw new AuthenticationError("Must be logged in.");
+    },
   },
 };
 
