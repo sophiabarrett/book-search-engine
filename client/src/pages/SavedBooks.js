@@ -19,6 +19,27 @@ const SavedBooks = () => {
   const { loading, data } = useQuery(GET_ME);
   const userData = data?.me;
 
+  const [deleteBook] = useMutation(REMOVE_BOOK);
+
+  // create function that accepts the book's mongo _id value as param and deletes the book from the database
+  const handleDeleteBook = async (bookId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      await deleteBook({
+        variables: { bookId: bookId }
+      });
+      // upon success, remove book's id from localStorage
+      removeBookId(bookId);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // if user not found, redirect to homepage
   if (!Auth.loggedIn()) {
     return <Redirect to="/" />;
@@ -61,7 +82,7 @@ const SavedBooks = () => {
                   <Card.Text>{book.description}</Card.Text>
                   <Button
                     className="btn-block btn-danger"
-                    // onClick={() => handleDeleteBook(book.bookId)}
+                    onClick={() => handleDeleteBook(book.bookId)}
                   >
                     Delete this Book!
                   </Button>
