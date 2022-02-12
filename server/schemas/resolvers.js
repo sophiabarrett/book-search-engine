@@ -5,11 +5,10 @@ const { User } = require("../models");
 const resolvers = {
   Query: {
     // get a single user by either id or username
-    me: async (_, __, { user }) => {
-      if (user) {
-        const userData = await User.findOne({ _id: user._id })
-          .select("-__v -password")
-          .populate("savedBooks");
+    me: async (_, __, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id })
+          .select("-__v -password");
 
         return userData;
       }
@@ -39,11 +38,11 @@ const resolvers = {
       const token = await signToken(user);
       return { token, user };
     },
-    saveBook: async (_, args, { user }) => {
-      if (user) {
+    saveBook: async (_, args, context) => {
+      if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
-          { _id: user._id },
-          { $addToSet: { savedBooks: args } },
+          { _id: context.user._id },
+          { $addToSet: { savedBooks: args.input } },
           { new: true, validators: true }
         );
         return updatedUser;
