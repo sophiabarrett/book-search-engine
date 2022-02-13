@@ -25,6 +25,6 @@ For questions contact Sophia Barrett at sophia@yoursummit.media or visit github.
 
 ## License
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[GNU General Public License v3.0](./LICENSE)
 
 Copyright © 2021 Sophia Barrett
