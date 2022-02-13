@@ -13,7 +13,7 @@ Refactored MERN application built with a RESTful API to be a GraphQL API build w
 
 ## Live App
 
-Visit the live app at []()
+Visit the live app at [book-search-engine-sbarrett.herokuapp.com](https://book-search-engine-sbarrett.herokuapp.com/)
 
 ## Screenshot
 
