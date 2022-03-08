@@ -27,4 +27,4 @@ For questions contact Sophia Barrett at sophia@yoursummit.media or visit github.
 
 [GNU General Public License v3.0](./LICENSE)
 
-Copyright © 2021 Sophia Barrett
+Copyright © 2022 Sophia Barrett
